@@ -1,0 +1,33 @@
+name: Scrape Pump Tokens Hourly
+
+on:
+  schedule:
+    - cron: '0 * * * *'  # Every hour
+  workflow_dispatch:      # Allow manual run from GitHub
+
+jobs:
+  update-tokens:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run scraper script
+        run: python data/scrape_pump.py
+
+      - name: Commit and push updated pump_tokens.json
+        run: |
+          git config --global user.name 'github-actions[bot]'
+          git config --global user.email 'github-actions[bot]@users.noreply.github.com'
+          git add public/pump_tokens.json
+          git commit -m "Update pump_tokens.json [auto]"
+          git push
