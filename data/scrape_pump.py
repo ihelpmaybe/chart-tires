@@ -1,9 +1,10 @@
 import requests
 import json
 import time
+import os
 
 API_URL = "https://api.pump.tires/api/tokens"
-OUTPUT_FILE = "public/pump_tokens.json"
+OUTPUT_FILE = "pump_tokens.json"  # This will write to the repo root
 DELAY_BETWEEN_PAGES = 0.25  # seconds
 
 def fetch_tokens():
@@ -48,16 +49,7 @@ def save_tokens_to_file(tokens, filename=OUTPUT_FILE):
     print(f"Saved {len(tokens)} tokens to {filename}")
 
 if __name__ == "__main__":
-    try:
-        print("Starting Pump.tires token scraper...")
-        tokens = fetch_tokens()
-        save_tokens_to_file(tokens)
-        print("Done.")
-    except Exception as e:
-        print(f"❌ Scraper failed: {e}")
-        exit(1)
-    else:
-        exit(0)
-
-
-
+    print("Starting Pump.tires token scraper...")
+    tokens = fetch_tokens()
+    save_tokens_to_file(tokens)
+    print("Done.")
