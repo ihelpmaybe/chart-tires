@@ -5,18 +5,17 @@ import { getCombinedTokenData } from '../services/tokenService';
 import TokenChart from '../components/token/TokenChart';
 
 const TokenPage = () => {
-  const { address } = useParams();
+  const { baseTokenAddress } = useParams();
   const location = useLocation();
   const [token, setToken] = useState(location.state?.tokenData || null);
   const [loading, setLoading] = useState(!token);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!token) {
+    if (!token && baseTokenAddress) {
       setLoading(true);
       setError(null);
-      // Pass the address directly to getCombinedTokenData
-      getCombinedTokenData(address)
+      getCombinedTokenData(baseTokenAddress)
         .then(data => {
           setToken(data);
           setLoading(false);
@@ -27,7 +26,7 @@ const TokenPage = () => {
           setLoading(false);
         });
     }
-  }, [address, token]);
+  }, [baseTokenAddress, token]);
 
   if (loading) {
     return (
