@@ -36,9 +36,25 @@ export const getPumpTokens = async () => {
  * @returns {Promise<Object|null>} Token data or null if not found
  */
 export const getPumpTokenByAddress = async (address) => {
+  if (!address) {
+    console.warn('getPumpTokenByAddress: No address provided');
+    return null;
+  }
+
   try {
     const tokens = await getPumpTokens();
-    const token = tokens.find(t => t.address.toLowerCase() === address.toLowerCase());
+    const normalizedAddress = address.toLowerCase().trim();
+    
+    const token = tokens.find(t => {
+      // Handle both string and object address properties
+      const tokenAddress = typeof t.address === 'string' ? t.address.toLowerCase().trim() : '';
+      return tokenAddress === normalizedAddress;
+    });
+
+    if (!token) {
+      console.warn(`getPumpTokenByAddress: No token found for address ${address}`);
+    }
+    
     return token || null;
   } catch (error) {
     console.error('Error fetching pump token by address:', error);
