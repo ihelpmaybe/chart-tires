@@ -1,0 +1,101 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --color-bg-primary: #0e1118;
+    --color-bg-secondary: #141722;
+    --color-bg-tertiary: #1e2330;
+    --color-bg-highlight: #252b3b;
+    --color-text-primary: #fff;
+    --color-text-secondary: #8a94a8;
+    --color-text-tertiary: #636d83;
+    --color-border: #2c3344;
+    --color-green: #16c784;
+    --color-red: #ea3943;
+    --color-blue: #4878ff;
+  }
+
+  @keyframes slide-in {
+    0% {
+      opacity: 0;
+      transform: translateX(-20px);
+    }
+    100% {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  .animate-slide-in {
+    animation: slide-in 0.3s ease-out forwards;
+  }
+  
+  @keyframes pulseGreen {
+    0%, 100% {
+      border-color: rgba(34, 197, 94, 0.5);
+      box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.5);
+    }
+    50% {
+      border-color: rgba(34, 197, 94, 1);
+      box-shadow: 0 0 0 4px rgba(34, 197, 94, 0.3);
+    }
+  }
+  
+  .animate-pulse-green {
+    animation: pulseGreen 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+
+body {
+  /* background: url('../public/images/background.png') no-repeat center center fixed; */
+  background-size: cover;
+  background-color: #0e1118;
+}
+
+.theme-vaporwave {
+    --color-bg-primary: #2d006a;
+    --color-bg-secondary: #3a008d;
+    --color-bg-tertiary: #ff2fd6;
+    --color-bg-highlight: #ffb86c;
+    --color-text-primary: #fff1f7;
+    --color-text-secondary: #8afff7;
+    --color-text-tertiary: #ffb6ff;
+    --color-border: #ff2fd6;
+    --color-green: #39ff14;
+    --color-red: #ff005c;
+    --color-blue: #00eaff;
+}
+
+.neon-border {
+    border: 2px solid var(--color-border);
+    box-shadow: 0 0 8px var(--color-border), 0 0 16px var(--color-border);
+    border-radius: 16px;
+}
+
+.neon-text {
+    color: var(--color-text-primary);
+    text-shadow: 0 0 8px var(--color-text-primary), 0 0 16px var(--color-border);
+}
+
+.neon-header {
+    color: #ff2fd6;
+    text-shadow: 0 0 8px #ff2fd6, 0 0 16px #ffb86c;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.neon-table-row {
+    background: rgba(58,0,141,0.35);
+    border-bottom: 1px solid var(--color-border);
+    box-shadow: 0 0 8px 2px rgba(255,47,214,0.15);
+}
+
+.neon-table-row:hover {
+    background: rgba(255,184,108,0.18);
+    box-shadow: 0 0 16px 4px rgba(255,47,214,0.25);
+}
+
+body.theme-vaporwave {
+    background: linear-gradient(135deg, #2d006a 0%, #ff2fd6 100%) !important;
+    background-size: cover;
+}
