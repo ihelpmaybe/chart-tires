@@ -1,5 +1,16 @@
 [
   {
+    "address": "0x55a356151E39e240dCcB3D6e21033381bF304Cfc",
+    "name": "Gasspas",
+    "symbol": "GASS",
+    "image_url": "https://ipfs.io/ipfs/QmehUuQEU4fUhEAeP72zL9s6F4RigosnZiPHjZGYoipfP1",
+    "description": "Gasspas the cat, nemesis of Rato and the newest Matt Furie character in Cortex Vortex.",
+    "web": "",
+    "telegram": "",
+    "twitter": "",
+    "creator_address": "0x83b6259D86EdA84a06dca362Be9729A73A5BC014"
+  },
+  {
     "address": "0x02a23a4585A942d02409D5a2Ef2715558cF583f1",
     "name": "DadFi",
     "symbol": "DAD",
