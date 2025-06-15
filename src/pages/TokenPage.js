@@ -1,52 +1,33 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import TokenInfo from '../components/token/TokenInfo';
-import { getCombinedTokenData, getPumpTokens } from '../services/tokenService';
+import { getCombinedTokenData } from '../services/tokenService';
 import TokenChart from '../components/token/TokenChart';
 
 const TokenPage = () => {
   const { address } = useParams();
   const location = useLocation();
-  const [token, setToken] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [token, setToken] = useState(location.state?.tokenData || null);
+  const [loading, setLoading] = useState(!token);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    const loadTokenData = async () => {
+    if (!token) {
       setLoading(true);
-      try {
-        // Use token from navigation if available
-        const initialToken = location.state?.tokenData;
-        if (initialToken && initialToken.address.toLowerCase() === address.toLowerCase()) {
-          setToken(initialToken);
+      setError(null);
+      // Pass the address directly to getCombinedTokenData
+      getCombinedTokenData(address)
+        .then(data => {
+          setToken(data);
           setLoading(false);
-          return;
-        }
-
-        // Load pump tokens first
-        const tokens = await getPumpTokens();
-        const foundToken = tokens.find(
-          t => t.address.toLowerCase() === address.toLowerCase()
-        );
-
-        if (foundToken) {
-          setToken(foundToken);
-        } else {
-          // Fallback: try DexScreener-only live data
-          const fallbackData = await getCombinedTokenData(address);
-          setToken(fallbackData || null);
-        }
-
-        setLoading(false);
-      } catch (err) {
-        console.error('Error loading token data:', err);
-        setError('Failed to load token data');
-        setLoading(false);
-      }
-    };
-
-    loadTokenData();
-  }, [address, location.state]);
+        })
+        .catch(error => {
+          console.error('Error fetching token data:', error);
+          setError('Failed to load token data');
+          setLoading(false);
+        });
+    }
+  }, [address, token]);
 
   if (loading) {
     return (
@@ -56,10 +37,18 @@ const TokenPage = () => {
     );
   }
 
-  if (error || !token) {
+  if (error) {
     return (
       <div className="p-4 text-red-500">
-        {error || 'Token not found.'}
+        {error}
+      </div>
+    );
+  }
+
+  if (!token) {
+    return (
+      <div className="p-4 text-dex-text-secondary">
+        Token not found
       </div>
     );
   }
