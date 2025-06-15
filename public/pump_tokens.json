@@ -1,5 +1,16 @@
 [
   {
+    "address": "0x02a23a4585A942d02409D5a2Ef2715558cF583f1",
+    "name": "DadFi",
+    "symbol": "DAD",
+    "image_url": "https://ipfs.io/ipfs/QmZeBvWE6XT4cSh6RQRUs3tLpN83H1owx3MA6mHooCwJvT",
+    "description": "Happy Fathers Day ",
+    "web": "",
+    "telegram": "",
+    "twitter": "",
+    "creator_address": "0x457A4cBA60E06A011dC39B45A8343c46dA6F6DFE"
+  },
+  {
     "address": "0x962Af68421C94744D42083f901cAC3a02d77F8cb",
     "name": "DONNY",
     "symbol": "DONNY",
