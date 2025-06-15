@@ -1,32 +1,49 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import TokenInfo from '../components/token/TokenInfo';
-import { getCombinedTokenData } from '../services/tokenService';
+import { getCombinedTokenData, getPumpTokens } from '../services/tokenService';
 import TokenChart from '../components/token/TokenChart';
 
 const TokenPage = () => {
   const { address } = useParams();
   const location = useLocation();
   const [token, setToken] = useState(location.state?.tokenData || null);
-  const [loading, setLoading] = useState(!token);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [pumpTokens, setPumpTokens] = useState(null);
 
   useEffect(() => {
-    if (!token) {
-      setLoading(true);
-      setError(null);
-      // Pass the address directly to getCombinedTokenData
-      getCombinedTokenData(address)
-        .then(data => {
+    const loadTokenData = async () => {
+      try {
+        // First try to get token from pump tokens list
+        const tokens = await getPumpTokens();
+        setPumpTokens(tokens);
+        
+        // Case-insensitive address comparison
+        const foundToken = tokens.find(t => 
+          t.address.toLowerCase() === address.toLowerCase()
+        );
+
+        if (foundToken) {
+          // If we found the token in pump tokens, use that data
+          setToken(foundToken);
+          setLoading(false);
+        } else if (!token) {
+          // If not in pump tokens and we don't have token data, try fetching it
+          const data = await getCombinedTokenData(address);
           setToken(data);
           setLoading(false);
-        })
-        .catch(error => {
-          console.error('Error fetching token data:', error);
-          setError('Failed to load token data');
+        } else {
           setLoading(false);
-        });
-    }
+        }
+      } catch (error) {
+        console.error('Error loading token data:', error);
+        setError('Failed to load token data');
+        setLoading(false);
+      }
+    };
+
+    loadTokenData();
   }, [address, token]);
 
   if (loading) {
