@@ -3,7 +3,7 @@ import json
 import time
 
 API_URL = "https://api.pump.tires/api/tokens"
-OUTPUT_FILE = "../public/pump_tokens.json"
+OUTPUT_FILE = "public/pump_tokens.json"
 DELAY_BETWEEN_PAGES = 0.25  # seconds
 
 def fetch_tokens():
@@ -54,8 +54,10 @@ if __name__ == "__main__":
         save_tokens_to_file(tokens)
         print("Done.")
     except Exception as e:
-        print("❌ Scraper failed:", e)
-        exit(1)  # Fail only if something actually breaks
+        print(f"❌ Scraper failed: {e}")
+        exit(1)
     else:
-        exit(0)  # Force clean success
+        exit(0)
+
+
 
