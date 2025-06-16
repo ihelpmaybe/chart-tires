@@ -1,5 +1,16 @@
 [
   {
+    "address": "0xeCcdD1579f92D382B2ff64dD19bca16901509c3a",
+    "name": "FRESH START SHOWER",
+    "symbol": "FSS",
+    "image_url": "https://ipfs.io/ipfs/QmWSDW6XoK7dWTvizr1gnn6KgpTn7d2GkG43aCj2LZegMa",
+    "description": "",
+    "web": "",
+    "telegram": "",
+    "twitter": "",
+    "creator_address": "0x41b958DB0B518d3e11b4e1E35768bD5A06cac50b"
+  },
+  {
     "address": "0x55a356151E39e240dCcB3D6e21033381bF304Cfc",
     "name": "Gasspas",
     "symbol": "GASS",
